@@ -111,7 +111,11 @@ populate();
 
 
 // timer clock
-var number = 60;
+
+// setTimeout(timeUp, 1000 * 15)
+// function timeUp() {
+//     $("#timer").html("<h2>" + "Time is up!" + "</h2>");
+// }
 
 //  Variable that will hold our interval ID when we execute
 //  the "run" function
@@ -124,33 +128,44 @@ $("#btn").on("click", run);
 //  that runs the decrement function once a second.
 function run() {
     clearInterval(intervalId);
-    intervalId = setInterval(decrement, 1000);
+    
 }
 
+var timeLeft = 10;
+var displayClock = document.getElementById('timer');
 
+var timerId = setInterval(countdown, 1000);
+
+function countdown() {
+  if (timeLeft === 0) {
+    clearTimeout(timerId);
+    alert("You did not answer in time!");
+  } else {
+    displayClock.innerHTML = timeLeft + ' seconds remaining';
+    timeLeft--;
+  }
+}
 //  The decrement function.
-function decrement() {
-    number--;
+// function decrement() {
+//     number--;
 
-    $("#show-clock").html("<h2>" + "Time Left: " + number + "</h2>");
-}
+    // $("#show-clock").html("<h2>" + "Time Left: " + number + "</h2>");
+// }
 
 //  Once number hits zero...
-if (number === 0) {
-
-    //  ...run the stop function.
-    stop();
-
-    //  Alert the user that time is up.
-    // alert("Time Up!");
-}
+// if (number === 0) {
+//     $("#show-clock").html("<h2>" + "Time is up!" + "</h2>");
 
 
-// //  The stop function
-function stop() {
-    clearInterval(intervalId);
+// }
 
-}
+
+// // //  The stop function
+// function stop() {
+//     clearInterval(intervalId);
+
+
+// }
 
 //  Execute the run function.
 run();
