@@ -26,6 +26,10 @@ h1 {
     
 }
 
+#questionName {
+    height: 75px;
+}
+
 #question {
     font-family: 'Lora', serif;
     font-size: 30px;
@@ -70,3 +74,18 @@ h1 {
     text-align: center;
 }
 
+.corr {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.wrong { 
+    text-align: center;
+    margin-top: 20px;
+    
+}
+
+#show-clock {
+    text-align: right;
+    font-family: 'Lora', serif;
+}

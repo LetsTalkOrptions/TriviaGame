@@ -71,7 +71,7 @@ function showScores() {
     var gameOver = "<h1>Results</h1>" + "<h2 class='corr score'> Correct Answers: " + quiz.score + "<h2>" + "<br>" + "<h2 class = 'wrong score'>Wrong Answers: " + (questions.length - quiz.score);;
     var results = document.getElementById("trivia");
     results.innerHTML = gameOver;
-   
+
 
 }
 
@@ -113,50 +113,44 @@ populate();
 // timer clock
 var number = 60;
 
-    //  Variable that will hold our interval ID when we execute
-    //  the "run" function
-    var intervalId;
+//  Variable that will hold our interval ID when we execute
+//  the "run" function
+var intervalId;
 
-    // //  When the stop button gets clicked, run the stop function.
-    // $("#stop").on("click", stop);
+//  When the resume button gets clicked, execute the run function.
+$("#btn").on("click", run);
 
-    //  When the resume button gets clicked, execute the run function.
-    $("#timer").on("click", run);
-
-    //  The run function sets an interval
-    //  that runs the decrement function once a second.
-    function run() {
-      clearInterval(intervalId);
-      intervalId = setInterval(decrement, 1000);
-    }
-
-    //  The decrement function.
-    function decrement() {
-
-      //  Decrease number by one.
-      number--;
-
-      //  Show the number in the #show-number tag.
-      $("#show-clock").html("<h2>" + "Time Left: " + number + "</h2>");
+//  The run function sets an interval
+//  that runs the decrement function once a second.
+function run() {
+    clearInterval(intervalId);
+    intervalId = setInterval(decrement, 1000);
+}
 
 
+//  The decrement function.
+function decrement() {
+    number--;
 
-      //  Once number hits zero...
-      if (number === 0) {
+    $("#show-clock").html("<h2>" + "Time Left: " + number + "</h2>");
+}
 
-        //  ...run the stop function.
-        stop();
+//  Once number hits zero...
+if (number === 0) {
 
-        //  Alert the user that time is up.
-        // alert("Time Up!");
-      }
-    }
+    //  ...run the stop function.
+    stop();
 
-    // //  The stop function
-    function stop() {
-      clearInterval(intervalId);
+    //  Alert the user that time is up.
+    // alert("Time Up!");
+}
 
-    }
 
-    //  Execute the run function.
-    run();
+// //  The stop function
+function stop() {
+    clearInterval(intervalId);
+
+}
+
+//  Execute the run function.
+run();
