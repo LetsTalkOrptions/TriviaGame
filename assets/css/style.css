@@ -12,20 +12,22 @@ body {
     padding: 10px 25px 25px 50px;
     border-radius: 50px;
     border: 2px solid #cbcbcb;
+    opacity: .9;
  
 }
 
 h1 {
-    font-family: sans-serif;
+    font-family: 'Lora', serif;
     font-size: 60px;
     text-align: center;
     color: #c74141;
     padding: 10px;
+
     
 }
 
 #question {
-    font-family: sans-serif;
+    font-family: 'Lora', serif;
     font-size: 30px;
     color: #000000;
     text-align: center;
@@ -38,11 +40,13 @@ h1 {
 }
 
 #btn0, #btn1, #btn2, #btn3 {
+    font-family: 'Lora', serif;
     background-color: darkgrey;
     text-align: center;
     width: 400px;
     font-size: 20px;
-    color: white;
+    color: #c74141;
+    font-style: bold;
     border: 2px solid black;
     border-radius: 50px;
     margin: 10px 0px 10px 0px;
@@ -59,9 +63,10 @@ h1 {
 }
 
 #progress {
+    font-family: 'Lora', serif;
     color: darkgray;
     font-size: 18px;
-    margin-top: 60px;
-    text-align: right;
+    margin-top: 10px;
+    text-align: center;
 }
 

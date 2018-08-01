@@ -14,7 +14,7 @@ Quiz.prototype.isEnded = function () {
 }
 
 Quiz.prototype.guess = function (answer) {
-    
+
     if (this.getQuestionIndex().correctAnswer(answer)) {
         this.score++;
     }
@@ -41,21 +41,21 @@ function populate() {
     else {
         var element = document.getElementById("question");
         element.innerHTML = quiz.getQuestionIndex().text;
-    
+
         // have options appear for each question
         var choices = quiz.getQuestionIndex().choices;
         for (var i = 0; i < choices.length; i++) {
-            var element = document.getElementById("choice" + i);
+            var element = document.getElementById("option" + i);
             element.innerHTML = choices[i];
             guess("btn" + i, choices[i]);
         }
-        showProgress() 
+        showProgress()
     }
 }
 
 function guess(id, guess) {
     var button = document.getElementById(id);
-    button.onclick = function() {
+    button.onclick = function () {
         quiz.guess(guess);
         populate();
     }
@@ -68,42 +68,95 @@ function showProgress() {
 }
 
 function showScores() {
-    var gameOver = "<h1>Results</h1>";
-    gameOver += "<h2 id='score'> Your scores: " + quiz.score + "<h2>";
-    var element = document.getElementById("quiz");
-    element.innerHTML = gameOver;
+    var gameOver = "<h1>Results</h1>" + "<h2 class='corr score'> Correct Answers: " + quiz.score + "<h2>" + "<br>" + "<h2 class = 'wrong score'>Wrong Answers: " + (questions.length - quiz.score);;
+    var results = document.getElementById("trivia");
+    results.innerHTML = gameOver;
+   
 
 }
 
 
 var questions = [
     new Question("Where was the game of golf originally founded?",
-    ["Scotland", "China", "England", "United States"],
-    "Scotland"),
-    new Question("Who is the only female golfer to make a cut at a PGA Tour event?", 
-    ["Michelle Wie", "Annika Sorensteim", "Lexi Thompson", "Babe Zaharias"],
-    "Babe Zaharias"),
-    new Question("What is the name for a hole-in-one on a par five?", 
-    ["Triple Eagle", "Double Ace", "Condor", "Albatross"],
-    "Condor"),
-    new Question("Who holds the record for the most PGA Tour victories?", 
-    ["Tiger Woods", "Jack Nicklaus", "Ben Hogan", "Sam Snead"], 
-    "Sam Snead"),
+        ["Scotland", "China", "England", "United States"],
+        "Scotland"),
+    new Question("Who is the only female golfer to make a cut at a PGA Tour event?",
+        ["Michelle Wie", "Annika Sorensteim", "Lexi Thompson", "Babe Zaharias"],
+        "Babe Zaharias"),
+    new Question("What is the name for a hole-in-one on a par five?",
+        ["Triple Eagle", "Double Ace", "Condor", "Albatross"],
+        "Condor"),
+    new Question("Who holds the record for the most PGA Tour victories?",
+        ["Tiger Woods", "Jack Nicklaus", "Ben Hogan", "Sam Snead"],
+        "Sam Snead"),
     new Question("What percentage of golfers will never achieve a handicap of 18 or less?",
-    ["50 percent", "73 percent", "80 percent", "91 percent"],
-    "80 percent"),
+        ["50 percent", "73 percent", "80 percent", "91 percent"],
+        "80 percent"),
     new Question("How many dimples are on a standard regulation golf ball?",
-    ["336", "402", "196", "468"],
-    "336"),
+        ["336", "402", "196", "468"],
+        "336"),
     new Question("Who was considered the first professional golfer in history?",
-    ["Bobby Jones", "Byron Nelson", "Walter Hagen", "Old Tom Morris"],
-    "Walter Hagen"),
-    new Question("Who is the youngest player to win the Masters?", 
-    ["Tiger Woods", "Jack Nicklaus", "Jordan Speith", "Arnold Palmer"], 
-    "Tiger Woods")
+        ["Bobby Jones", "Byron Nelson", "Walter Hagen", "Old Tom Morris"],
+        "Walter Hagen"),
+    new Question("Who is the youngest player to win the Masters?",
+        ["Tiger Woods", "Jack Nicklaus", "Jordan Speith", "Arnold Palmer"],
+        "Tiger Woods")
 ];
+
 
 var quiz = new Quiz(questions);
 populate();
 
 // use either document ready or put button jQueries at bottom of page, beneath defining buttons bc it reads top down, if no buttons are read yet, it cannot place click functions on them
+
+
+// timer clock
+var number = 60;
+
+    //  Variable that will hold our interval ID when we execute
+    //  the "run" function
+    var intervalId;
+
+    // //  When the stop button gets clicked, run the stop function.
+    // $("#stop").on("click", stop);
+
+    //  When the resume button gets clicked, execute the run function.
+    $("#timer").on("click", run);
+
+    //  The run function sets an interval
+    //  that runs the decrement function once a second.
+    function run() {
+      clearInterval(intervalId);
+      intervalId = setInterval(decrement, 1000);
+    }
+
+    //  The decrement function.
+    function decrement() {
+
+      //  Decrease number by one.
+      number--;
+
+      //  Show the number in the #show-number tag.
+      $("#show-clock").html("<h2>" + "Time Left: " + number + "</h2>");
+
+
+
+      //  Once number hits zero...
+      if (number === 0) {
+
+        //  ...run the stop function.
+        stop();
+
+        //  Alert the user that time is up.
+        // alert("Time Up!");
+      }
+    }
+
+    // //  The stop function
+    function stop() {
+      clearInterval(intervalId);
+
+    }
+
+    //  Execute the run function.
+    run();
