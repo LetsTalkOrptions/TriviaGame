@@ -1,19 +1,25 @@
 // Keeping score
 
+var unanswered = 0;
+var questionIndex = 0;
+var score = 0;
+var questions = 0;
+
+
 function Quiz(questions) {
     this.score = 0;
     this.questions = questions;
     this.questionIndex = 0;
 }
-Quiz.prototype.getQuestionIndex = function () {
+function getQuestionIndex() {
     return this.questions[this.questionIndex];
 }
 
-Quiz.prototype.isEnded = function () {
+function endGame() {
     return this.questions.length === this.questionIndex;
 }
 
-Quiz.prototype.guess = function (answer) {
+function guess(answer) {
 
     if (this.getQuestionIndex().correctAnswer(answer)) {
         this.score++;
@@ -29,21 +35,24 @@ function Question(text, choices, answer) {
     this.answer = answer;
 }
 
+// check user answer
 Question.prototype.correctAnswer = function (choice) {
     return choice === this.answer;
 }
 
 // have questions appear if game is still going
 function populate() {
-    if (quiz.isEnded()) {
+
+    console.log("populating");
+    if (endGame()) {
         showScores();
     }
     else {
         var element = document.getElementById("question");
-        element.innerHTML = quiz.getQuestionIndex().text;
+        element.innerHTML = getQuestionIndex().text;
 
         // have options appear for each question
-        var choices = quiz.getQuestionIndex().choices;
+        var choices = getQuestionIndex().choices;
         for (var i = 0; i < choices.length; i++) {
             var element = document.getElementById("option" + i);
             element.innerHTML = choices[i];
@@ -53,6 +62,7 @@ function populate() {
     }
 }
 
+// store user guess
 function guess(id, guess) {
     var button = document.getElementById(id);
     button.onclick = function () {
@@ -60,22 +70,23 @@ function guess(id, guess) {
         populate();
     }
 }
-
+// show which question player is on
 function showProgress() {
     var currentQuestionNumber = quiz.questionIndex + 1;
     var element = document.getElementById("progress");
     element.innerHTML = "Question " + currentQuestionNumber + " of " + quiz.questions.length;
 }
 
+// display scores at end of game
 function showScores() {
-    var gameOver = "<h1>Results</h1>" + "<h2 class='corr score'> Correct Answers: " + quiz.score + "<h2>" + "<br>" + "<h2 class = 'wrong score'>Wrong Answers: " + (questions.length - quiz.score);;
+    var gameOver = "<h1>Results</h1>" + "<h2 class='corr score'> Correct Answers: " + quiz.score + "<h2>" + "<br>" + "<h2 class = 'wrong score'>Wrong Answers: " + (questions.length - quiz.score) + "<h2 class = 'unanswered score'>Unanswered: " + "<h2>";
     var results = document.getElementById("trivia");
     results.innerHTML = gameOver;
 
 
 }
 
-
+// sets of questions, options, answers
 var questions = [
     new Question("Where was the game of golf originally founded?",
         ["Scotland", "China", "England", "United States"],
@@ -103,29 +114,17 @@ var questions = [
         "Tiger Woods")
 ];
 
-
 var quiz = new Quiz(questions);
 populate();
 
-// use either document ready or put button jQueries at bottom of page, beneath defining buttons bc it reads top down, if no buttons are read yet, it cannot place click functions on them
 
-
-// timer clock
-
-// setTimeout(timeUp, 1000 * 15)
-// function timeUp() {
-//     $("#timer").html("<h2>" + "Time is up!" + "</h2>");
-// }
-
-//  Variable that will hold our interval ID when we execute
-//  the "run" function
 var intervalId;
 
 //  When the resume button gets clicked, execute the run function.
 $("#btn").on("click", run);
 
 //  The run function sets an interval
-//  that runs the decrement function once a second.
+
 function run() {
     clearInterval(intervalId);
     
@@ -138,34 +137,21 @@ var timerId = setInterval(countdown, 1000);
 
 function countdown() {
   if (timeLeft === 0) {
-    clearTimeout(timerId);
+    
+   
+    unanswered++;
+    questionIndex++;
+    populate();
+
     alert("You did not answer in time!");
+    timeLeft = 10;
+    
+    // reset timer, pull question
+    run();
   } else {
     displayClock.innerHTML = timeLeft + ' seconds remaining';
     timeLeft--;
   }
 }
-//  The decrement function.
-// function decrement() {
-//     number--;
 
-    // $("#show-clock").html("<h2>" + "Time Left: " + number + "</h2>");
-// }
-
-//  Once number hits zero...
-// if (number === 0) {
-//     $("#show-clock").html("<h2>" + "Time is up!" + "</h2>");
-
-
-// }
-
-
-// // //  The stop function
-// function stop() {
-//     clearInterval(intervalId);
-
-
-// }
-
-//  Execute the run function.
 run();
