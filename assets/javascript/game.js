@@ -1,9 +1,8 @@
 // Keeping score
-
-
     var score = 0;
     var questions = questions;
     var questionIndex = 0;
+    var unanswered = 0;
 
 function getQuestionIndex() {
     return this.questions[this.questionIndex];
@@ -14,20 +13,22 @@ function isEnded() {
 }
 
 function choose(answer) {
-
+    console.log("this is working")
+    console.log(answer);
     if (this.getQuestionIndex().correctAnswer(answer)) {
         this.score++;
     }
     this.questionIndex++;
+    run();
 }
 
 // functions for questions
-
 function Question(text, choices, answer) {
     this.text = text;
     this.choices = choices;
     this.answer = answer;
 }
+
 
 Question.prototype.correctAnswer = function (choice) {
     return choice === this.answer;
@@ -56,7 +57,7 @@ function populate() {
 function guess(id, guess) {
     var button = document.getElementById(id);
     button.onclick = function () {
-        guess(guess);
+        // guess(guess);
         populate();
     }
 }
@@ -64,7 +65,7 @@ function guess(id, guess) {
 function showProgress() {
     var currentQuestionNumber = questionIndex + 1;
     var element = document.getElementById("progress");
-    element.innerHTML = "Question " + currentQuestionNumber + " of " + quiz.questions.length;
+    element.innerHTML = "Question " + currentQuestionNumber + " of " + questions.length;
 }
 
 function showScores() {
@@ -77,6 +78,7 @@ function showScores() {
 
 
 var questions = [
+
     new Question("Where was the game of golf originally founded?",
         ["Scotland", "China", "England", "United States"],
         "Scotland"),
@@ -103,15 +105,19 @@ var questions = [
         "Tiger Woods")
 ];
 
+$("button").on("click", function() {
+    console.log($(this).text());
+    var storedAnswer = $(this).text();
+    choose(storedAnswer);
+})
 
-var quiz = questions;
 populate();
 
 // use either document ready or put button jQueries at bottom of page, beneath defining buttons bc it reads top down, if no buttons are read yet, it cannot place click functions on them
 
 
 // timer clock
-var number = 60;
+var number;
 
     //  Variable that will hold our interval ID when we execute
     //  the "run" function
@@ -127,6 +133,7 @@ var number = 60;
     //  that runs the decrement function once a second.
     function run() {
       clearInterval(intervalId);
+      number = 11;
       intervalId = setInterval(decrement, 1000);
     }
 
@@ -139,11 +146,17 @@ var number = 60;
       //  Once number hits zero...
       if (number === 0) {
 
-        //  ...run the stop function.
-        stop();
-
+        // add one to unanswered
+        unanswered++;
         //  Alert the user that time is up.
         // alert("Time Up!");
+        // go to next question
+        this.questionIndex++;
+        // populate next question
+        populate();
+        // run timer 
+        run();
+
       }
     }
 
