@@ -22,8 +22,7 @@ h1 {
     text-align: center;
     color: #c74141;
     padding: 10px;
-
-    
+    padding-top: 30px;
 }
 
 #questionName {
@@ -76,13 +75,17 @@ h1 {
 
 .corr {
     text-align: center;
-    margin-top: 150px;
+    margin-top: 130px;
 }
 
 .wrong { 
     text-align: center;
-    margin-top: 20px;
-    
+    margin-top: 20px;  
+}
+
+.unanswered { 
+    text-align: center;
+    margin-top: 55px;  
 }
 
 #show-clock {
