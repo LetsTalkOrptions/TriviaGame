@@ -7,7 +7,7 @@ body {
 .grid {
     width: 750px;
     height: 700px;
-    margin: 200px auto;
+    margin: 120px auto;
     background-color: beige;
     padding: 10px 25px 25px 50px;
     border-radius: 50px;
@@ -91,4 +91,8 @@ h1 {
 #show-clock {
     text-align: right;
     font-family: 'Lora', serif;
+}
+
+#timer {
+    margin-bottom: 2px;
 }
